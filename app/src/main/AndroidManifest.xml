@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GuiaPersonagensRickAndMorty">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".view.SplashScreenActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -21,16 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".view.ListagemPersonagensActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ListagemPersonagensActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".DetalhePersonagemActivity"
+            android:name=".view.DetalhePersonagemActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

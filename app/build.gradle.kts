@@ -54,4 +54,23 @@ dependencies {
 
     implementation("de.hdodenhof:circleimageview:2.0.0")
 
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //swipe refesh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0")
+
+    //liveData
+    implementation("androidx.activity:activity-ktx:1.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.11.0")
+
+    //glide
+    implementation("com.github.bumptech.glide:glide:5.0.9")
+    annotationProcessor("com.github.bumptech.glide:compiler:5.0.9")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.11.0")
+
+
+
 }

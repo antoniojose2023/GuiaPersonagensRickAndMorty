@@ -1,16 +1,15 @@
-package br.com.devmobile.guiapersonagensrickandmorty
+package br.com.devmobile.guiapersonagensrickandmorty.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import br.com.devmobile.guiapersonagensrickandmorty.databinding.ActivityListagemPersonagensBinding
-import kotlin.getValue
+import br.com.devmobile.guiapersonagensrickandmorty.R
+import br.com.devmobile.guiapersonagensrickandmorty.databinding.ActivityDetalhePersonagemBinding
 
-class ListagemPersonagensActivity : AppCompatActivity() {
-
-    private val binding by lazy{ ActivityListagemPersonagensBinding.inflate(layoutInflater) }
+class DetalhePersonagemActivity : AppCompatActivity() {
+    private val binding by lazy{ ActivityDetalhePersonagemBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
