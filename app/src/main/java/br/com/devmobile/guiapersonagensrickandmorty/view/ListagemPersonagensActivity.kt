@@ -1,5 +1,6 @@
 package br.com.devmobile.guiapersonagensrickandmorty.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -42,6 +43,11 @@ class ListagemPersonagensActivity : AppCompatActivity() {
             insets
         }
 
+        adapterCharacter.onClickCharacter = { character ->
+              val intent = Intent(this, DetalhePersonagemActivity::class.java)
+              intent.putExtra("character", character)
+              startActivity(intent)
+        }
 
 
     }
@@ -52,7 +58,7 @@ class ListagemPersonagensActivity : AppCompatActivity() {
     }
 
     fun getListCharacter(){
-        reppsitoryCharacter.getListCharacter().observe(this as LifecycleOwner){ status ->
+        reppsitoryCharacter.getListCharacter().observe(this){ status ->
 
             when(status){
                 is Status.loader -> {}

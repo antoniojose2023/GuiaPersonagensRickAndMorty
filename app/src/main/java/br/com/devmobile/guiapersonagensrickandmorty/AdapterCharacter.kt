@@ -41,6 +41,9 @@ class AdapterCharacter(var onClickCharacter: (Result) -> Unit = {}): RecyclerVie
 
                Glide.with(binding.root.context).load(character.image).into(binding.ivImagemPersonagem)
 
+               binding.cardItemCharacter.setOnClickListener {
+                        onClickCharacter(character)
+               }
         }
     }
 
