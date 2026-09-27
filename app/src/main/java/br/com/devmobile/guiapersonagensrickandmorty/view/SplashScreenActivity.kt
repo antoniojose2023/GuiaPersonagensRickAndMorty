@@ -25,13 +25,11 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
 
-
     fun carregarTelaInicial(){
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, ListagemPersonagensActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }, 2000,)
-
     }
 }

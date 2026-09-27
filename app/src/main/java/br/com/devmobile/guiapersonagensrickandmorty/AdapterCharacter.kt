@@ -13,7 +13,8 @@ class AdapterCharacter(var onClickCharacter: (Result) -> Unit = {}): RecyclerVie
     private var results = mutableListOf<Result>()
 
     fun addLista(lista: MutableList<Result>){
-          results.addAll( lista )
+          results = lista
+          notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderCharacter {

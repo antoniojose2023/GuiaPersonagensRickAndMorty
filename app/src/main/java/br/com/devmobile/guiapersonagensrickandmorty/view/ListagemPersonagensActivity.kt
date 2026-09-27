@@ -2,9 +2,11 @@ package br.com.devmobile.guiapersonagensrickandmorty.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LifecycleObserver
@@ -33,6 +35,8 @@ class ListagemPersonagensActivity : AppCompatActivity() {
         RepositryCharacter()
     }
 
+    private var characters = mutableListOf<Result>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,6 +46,27 @@ class ListagemPersonagensActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        binding.rvPersonagens.layoutManager = LinearLayoutManager(this)
+        binding.rvPersonagens.adapter = adapterCharacter
+
+        binding.searchViewPesquisa.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(textoPesquisa: String?): Boolean {
+
+                    getListCharacter( textoPesquisa!! )
+
+                return true
+            }
+
+            override fun onQueryTextSubmit(textoPesquisa: String?): Boolean {
+
+                    getListCharacter( textoPesquisa!! )
+
+                return true
+            }
+        })
+
+
 
         adapterCharacter.onClickCharacter = { character ->
               val intent = Intent(this, DetalhePersonagemActivity::class.java)
@@ -57,22 +82,68 @@ class ListagemPersonagensActivity : AppCompatActivity() {
         getListCharacter()
     }
 
-    fun getListCharacter(){
+    fun getListCharacter(nome: String=""){
+           if(nome.isEmpty()){
+               reppsitoryCharacter.getListCharacter().observe(this){ status ->
+
+                   when(status){
+                       is Status.loader -> {}
+                       is Status.OnSucess -> {
+                           popularRecyclerView(status.list as MutableList<Result>)
+                       }
+                       is Status.OnError -> {
+                           Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
+
+                       }
+                   }
+               }
+           }else{
+               reppsitoryCharacter.getListCharacter(nome).observe(this){ status ->
+
+                   when(status){
+                       is Status.loader -> {}
+                       is Status.OnSucess -> {
+                           popularRecyclerView(status.list as MutableList<Result>)
+                       }
+                       is Status.OnError -> {
+                           Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
+
+                       }
+                   }
+               }
+           }
+
+    }
+
+   /* fun getListCharacter(){
         reppsitoryCharacter.getListCharacter().observe(this){ status ->
 
             when(status){
                 is Status.loader -> {}
                 is Status.OnSucess -> {
-                      binding.rvPersonagens.layoutManager = LinearLayoutManager(this)
-                      adapterCharacter.addLista(status.list as MutableList<Result>)
-                      binding.rvPersonagens.adapter = adapterCharacter
+                    binding.rvPersonagens.layoutManager = LinearLayoutManager(this)
+                    adapterCharacter.addLista(status.list as MutableList<Result>)
+                    binding.rvPersonagens.adapter = adapterCharacter
                 }
                 is Status.OnError -> {
-                      Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
 
                 }
             }
         }
+
+    }*/
+
+    fun popularRecyclerView(lista: MutableList<Result>){
+          if(lista.isEmpty()){
+               binding.layoutEmptyState.visibility = View.VISIBLE
+               binding.rvPersonagens.visibility = View.GONE
+
+          }else{
+              binding.layoutEmptyState.visibility = View.GONE
+              binding.rvPersonagens.visibility = View.VISIBLE
+              adapterCharacter.addLista(lista)
+          }
 
     }
 

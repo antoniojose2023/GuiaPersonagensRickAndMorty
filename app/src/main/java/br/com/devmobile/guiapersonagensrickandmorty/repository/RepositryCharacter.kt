@@ -4,15 +4,15 @@ import androidx.lifecycle.liveData
 import br.com.devmobile.guiapersonagensrickandmorty.api.RetrofitHelper
 import br.com.devmobile.guiapersonagensrickandmorty.util.Status
 
-class RepositryCharacter {
+class RepositryCharacter() {
 
     val serviceApiRickMorty = RetrofitHelper.serviceApiRickMorty
 
-    fun getListCharacter() = liveData {
+    fun getListCharacter(nome: String="") = liveData {
           emit(Status.loader  )
 
           try{
-               val response =  serviceApiRickMorty.getCharacter()
+               val response =  serviceApiRickMorty.getCharacter(nome)
                emit(Status.OnSucess(response.body()!!.results))
 
           }catch (ex: Exception) {
