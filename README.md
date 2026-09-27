@@ -27,7 +27,6 @@ O **Guia de Personagens Rick and Morty** é um app de catálogo que exibe a list
 |:---:|:---:|:---:|:---:|
 | ![Splash](screenshots/splash.png) | ![Lista de personagens](screenshots/lista-personagens.png) | ![Busca](screenshots/busca.png) | ![Detalhes](screenshots/detalhes.png) |
 
-> 💡 As imagens acima ficam na pasta `screenshots/` deste repositório. Adicione os arquivos `splash.png`, `lista-personagens.png`, `busca.png` e `detalhes.png` nessa pasta para que apareçam corretamente no GitHub.
 
 ---
 
@@ -37,8 +36,6 @@ O **Guia de Personagens Rick and Morty** é um app de catálogo que exibe a list
 - **Android SDK** — desenvolvimento nativo Android
 - **Gradle (Kotlin DSL)** — build system (`build.gradle.kts`, `settings.gradle.kts`)
 - **[Rick and Morty API](https://rickandmortyapi.com/)** — API pública REST/GraphQL usada como fonte dos dados de personagens
-
-> ℹ️ *Ajuste esta lista conforme as bibliotecas efetivamente usadas no módulo `app` (ex: Jetpack Compose ou XML/View Binding, Retrofit, Coroutines/Flow, Hilt/Koin, Room para cache de favoritos, Coil/Glide para imagens etc.), já que o conteúdo interno do código-fonte não pôde ser inspecionado neste momento.*
 
 ---
 
@@ -114,8 +111,6 @@ Cada personagem retorna dados como `name`, `status`, `species`, `type`, `gender`
 - [ ] Modo escuro
 - [ ] Testes unitários e de UI
 
-> Sinta-se à vontade para editar este roadmap de acordo com o planejamento real do projeto.
-
 ---
 
 ## 🤝 Contribuindo
@@ -142,4 +137,4 @@ Desenvolvido por **[antoniojose2023](https://github.com/antoniojose2023)**.
 
 ---
 
-<p align="center">Feito com 💙 e kotlin —</p>
+<p align="center">Feito com 💙 e kotlin </p>
