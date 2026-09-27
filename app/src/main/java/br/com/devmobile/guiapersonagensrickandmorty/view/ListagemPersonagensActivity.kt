@@ -2,6 +2,10 @@ package br.com.devmobile.guiapersonagensrickandmorty.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.LoginFilter
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +18,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.devmobile.guiapersonagensrickandmorty.AdapterCharacter
 import br.com.devmobile.guiapersonagensrickandmorty.R
 import br.com.devmobile.guiapersonagensrickandmorty.databinding.ActivityListagemPersonagensBinding
@@ -22,10 +27,12 @@ import br.com.devmobile.guiapersonagensrickandmorty.datalocal.FavoriteCharacter
 import br.com.devmobile.guiapersonagensrickandmorty.model.Result
 import br.com.devmobile.guiapersonagensrickandmorty.repository.RepositryCharacter
 import br.com.devmobile.guiapersonagensrickandmorty.util.Status
+import br.com.devmobile.guiapersonagensrickandmorty.util.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.http2.Http2Reader
 
 class ListagemPersonagensActivity : AppCompatActivity() {
 
@@ -37,7 +44,7 @@ class ListagemPersonagensActivity : AppCompatActivity() {
         RepositryCharacter()
     }
 
-
+    private var pageAtual = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +63,21 @@ class ListagemPersonagensActivity : AppCompatActivity() {
 
         binding.rvPersonagens.layoutManager = LinearLayoutManager(this)
         binding.rvPersonagens.adapter = adapterCharacter
+
+        binding.rvPersonagens.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if(!recyclerView.canScrollVertically(1)){
+                    binding.progressBar.visibility = View.VISIBLE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        getListCharacterNextPage()
+                    },1000)
+
+                }
+
+            }
+        })
 
         binding.searchViewPesquisa.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(textoPesquisa: String?): Boolean {
@@ -107,57 +129,50 @@ class ListagemPersonagensActivity : AppCompatActivity() {
         getListCharacter()
     }
 
-    fun getListCharacter(nome: String=""){
-           if(nome.isEmpty()){
+    fun getListCharacterNextPage(){
+         if(pageAtual <= Util.COUNT_PAGES){
+              getListCharacter( pages = pageAtual )
+              pageAtual++
+         }
+
+         binding.progressBar.visibility = View.GONE
+    }
+
+    fun getListCharacter(nome: String="", pages: Int = 1){
+           if(nome.isEmpty() && pages <= 0){
                reppsitoryCharacter.getListCharacter().observe(this){ status ->
 
                    when(status){
-                       is Status.loader -> {}
+                       is Status.loader -> {  binding.progressBar.visibility = View.VISIBLE }
                        is Status.OnSucess -> {
                            popularRecyclerView(status.list as MutableList<Result>)
+                           binding.progressBar.visibility = View.GONE
                        }
                        is Status.OnError -> {
                            Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
+                           binding.progressBar.visibility = View.GONE
 
                        }
                    }
                }
            }else{
-               reppsitoryCharacter.getListCharacter(nome).observe(this){ status ->
+               reppsitoryCharacter.getListCharacter(nome, pages).observe(this){ status ->
 
                    when(status){
-                       is Status.loader -> {}
+                       is Status.loader -> {binding.progressBar.visibility = View.VISIBLE}
                        is Status.OnSucess -> {
                            popularRecyclerView(status.list as MutableList<Result>)
+                           binding.progressBar.visibility = View.GONE
                        }
                        is Status.OnError -> {
                            Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
-
+                           binding.progressBar.visibility = View.GONE
                        }
                    }
                }
            }
 
     }
-
-   /* fun getListCharacter(){
-        reppsitoryCharacter.getListCharacter().observe(this){ status ->
-
-            when(status){
-                is Status.loader -> {}
-                is Status.OnSucess -> {
-                    binding.rvPersonagens.layoutManager = LinearLayoutManager(this)
-                    adapterCharacter.addLista(status.list as MutableList<Result>)
-                    binding.rvPersonagens.adapter = adapterCharacter
-                }
-                is Status.OnError -> {
-                    Toast.makeText(applicationContext, "Erro - ${status.mensagem}", Toast.LENGTH_SHORT).show()
-
-                }
-            }
-        }
-
-    }*/
 
     fun popularRecyclerView(lista: MutableList<Result>){
           if(lista.isEmpty()){
@@ -169,7 +184,6 @@ class ListagemPersonagensActivity : AppCompatActivity() {
               binding.rvPersonagens.visibility = View.VISIBLE
               adapterCharacter.addLista(lista)
           }
-
     }
 
 }

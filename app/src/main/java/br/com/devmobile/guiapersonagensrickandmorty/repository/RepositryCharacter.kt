@@ -8,11 +8,11 @@ class RepositryCharacter() {
 
     val serviceApiRickMorty = RetrofitHelper.serviceApiRickMorty
 
-    fun getListCharacter(nome: String="") = liveData {
+    fun getListCharacter(nome: String="", pages: Int = 0) = liveData {
           emit(Status.loader  )
 
           try{
-               val response =  serviceApiRickMorty.getCharacter(nome)
+               val response =  serviceApiRickMorty.getCharacter(nome, pages)
                emit(Status.OnSucess(response.body()!!.results))
 
           }catch (ex: Exception) {

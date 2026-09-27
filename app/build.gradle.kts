@@ -59,6 +59,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //logging-interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:5.5.0")
+
     //swipe refesh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0")
 

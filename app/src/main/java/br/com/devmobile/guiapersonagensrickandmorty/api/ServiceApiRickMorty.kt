@@ -9,6 +9,7 @@ interface ServiceApiRickMorty {
 
     @GET("character")
     suspend fun getCharacter(
-         @Query("name") nome: String
+         @Query("name") nome: String,
+         @Query("pages") page: Int
     ): Response<ResponseCharacter>
 }

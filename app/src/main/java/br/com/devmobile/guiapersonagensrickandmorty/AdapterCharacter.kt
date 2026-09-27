@@ -16,7 +16,7 @@ class AdapterCharacter(
     private var results = mutableListOf<Result>()
 
     fun addLista(lista: MutableList<Result>){
-          results = lista
+          results.addAll(lista)
           notifyDataSetChanged()
     }
 
