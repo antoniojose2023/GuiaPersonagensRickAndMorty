@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -72,5 +73,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.11.0")
 
 
+    val roomVersion = "2.6.1" // Use a versão estável mais recente do Room 2.x
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion") // Suporte para Coroutines e Flow
+    ksp("androidx.room:room-compiler:$roomVersion")
 
 }

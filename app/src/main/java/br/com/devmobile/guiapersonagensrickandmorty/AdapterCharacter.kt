@@ -9,7 +9,10 @@ import br.com.devmobile.guiapersonagensrickandmorty.model.Result
 import com.bumptech.glide.Glide
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory
 
-class AdapterCharacter(var onClickCharacter: (Result) -> Unit = {}): RecyclerView.Adapter<AdapterCharacter.ViewHolderCharacter>()  {
+class AdapterCharacter(
+    var onClickCharacter: (Result) -> Unit = {},
+    var onClickFavorite: (Result) -> Unit = {},
+): RecyclerView.Adapter<AdapterCharacter.ViewHolderCharacter>()  {
     private var results = mutableListOf<Result>()
 
     fun addLista(lista: MutableList<Result>){
@@ -45,6 +48,11 @@ class AdapterCharacter(var onClickCharacter: (Result) -> Unit = {}): RecyclerVie
                binding.cardItemCharacter.setOnClickListener {
                         onClickCharacter(character)
                }
+
+              binding.ivFavorito.setOnClickListener {
+                    onClickFavorite(character)
+               }
+
         }
     }
 

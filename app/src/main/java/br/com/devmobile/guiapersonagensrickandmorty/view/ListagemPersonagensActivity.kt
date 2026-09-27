@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.devmobile.guiapersonagensrickandmorty.AdapterCharacter
 import br.com.devmobile.guiapersonagensrickandmorty.R
 import br.com.devmobile.guiapersonagensrickandmorty.databinding.ActivityListagemPersonagensBinding
+import br.com.devmobile.guiapersonagensrickandmorty.datalocal.DatabaseRoom
+import br.com.devmobile.guiapersonagensrickandmorty.datalocal.FavoriteCharacter
 import br.com.devmobile.guiapersonagensrickandmorty.model.Result
 import br.com.devmobile.guiapersonagensrickandmorty.repository.RepositryCharacter
 import br.com.devmobile.guiapersonagensrickandmorty.util.Status
@@ -35,7 +37,7 @@ class ListagemPersonagensActivity : AppCompatActivity() {
         RepositryCharacter()
     }
 
-    private var characters = mutableListOf<Result>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,11 @@ class ListagemPersonagensActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+        val favoriteDB = DatabaseRoom.getInstance( this )
+        val favoriteCharacterDAO = favoriteDB.favoriteCharacterDao()
+
 
         binding.rvPersonagens.layoutManager = LinearLayoutManager(this)
         binding.rvPersonagens.adapter = adapterCharacter
@@ -72,6 +79,24 @@ class ListagemPersonagensActivity : AppCompatActivity() {
               val intent = Intent(this, DetalhePersonagemActivity::class.java)
               intent.putExtra("character", character)
               startActivity(intent)
+        }
+
+        adapterCharacter.onClickFavorite = { character ->
+             val favoriteCharacter = FavoriteCharacter(0, character.name, character.status, character.image)
+
+             CoroutineScope(Dispatchers.IO).launch {
+                val retorno = favoriteCharacterDAO.salvar( favoriteCharacter )
+
+                withContext(Dispatchers.Main){
+                      if(retorno > 0){
+                          Toast.makeText(applicationContext, "Salvo nos favoritos", Toast.LENGTH_SHORT).show()
+                      }else{
+                          Toast.makeText(applicationContext, "Erro ao tentar favoritar", Toast.LENGTH_SHORT).show()
+                      }
+                }
+             }
+
+
         }
 
 
