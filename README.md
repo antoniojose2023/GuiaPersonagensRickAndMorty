@@ -23,9 +23,9 @@ O **Guia de Personagens Rick and Morty** é um app de catálogo que exibe a list
 
 ## 🖼️ Screenshots
 
-| Splash  | Lista |  Busca  | Detalhes |
-|:----:|:---:|:---:|:---:|
-| <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/6ff67d26-116f-4cb8-8f05-8e0fc464fd24" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/74a63bea-a379-4e90-a3f9-fc18646069be" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/3e04a908-fea9-4947-824c-fe144a76e08c" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/2672966b-da00-4f15-9b94-729c00e48569" /> |
+| Splash  | Lista |  Busca  | Detalhes |  Erro |
+|:----:|:---:|:---:|:---:|:---:|
+| <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/6ff67d26-116f-4cb8-8f05-8e0fc464fd24" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/69903226-9c15-4bba-aadf-9f89d2ddddf8" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/3e04a908-fea9-4947-824c-fe144a76e08c" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/2672966b-da00-4f15-9b94-729c00e48569" /> | <img width="1080" height="2424" alt="Image" src="https://github.com/user-attachments/assets/6fdc783c-5a99-4c5d-bf80-8356d0b57c62" /> |
 
 
 ---
